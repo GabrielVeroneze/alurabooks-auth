@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AbBotao, AbCampoTexto, AbModal } from 'ds-alurabooks'
-import api from '@/services/api'
+import { registrarUsuario } from '@/services/autenticacao'
 import imagemPrincipal from './assets/login.png'
 import styles from './ModalCadastroUsuario.module.scss'
 
@@ -24,7 +24,7 @@ const ModalCadastroUsuario = ({
     const handleSubmit = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
 
-        api.post('public/registrar', {
+        registrarUsuario({
             nome,
             email,
             endereco,
@@ -43,8 +43,8 @@ const ModalCadastroUsuario = ({
                 setSenhaConfirmada('')
                 aoFechar()
             })
-            .catch(() => {
-                alert('OPS! Alguma coisa deu errado!')
+            .catch(erro => {
+                alert(erro.message)
             })
     }
 
