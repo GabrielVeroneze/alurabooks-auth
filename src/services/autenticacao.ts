@@ -1,7 +1,9 @@
 import api from '@/services/api'
+import { AxiosError } from 'axios'
 import { Usuario } from '@/interfaces/Usuario'
 import { Credenciais } from '@/interfaces/Credenciais'
 import { Autenticacao } from '@/interfaces/Autenticacao'
+import { Erro } from '@/interfaces/Erro'
 
 export async function registrarUsuario(usuario: Usuario): Promise<number> {
     try {
@@ -18,7 +20,9 @@ export async function logarUsuario(credenciais: Credenciais): Promise<Autenticac
         const resposta = await api.post<Autenticacao>('/public/login', credenciais)
 
         return resposta.data
-    } catch {
-        throw new Error('Erro ao realizar o login.')
+    } catch (error) {
+        const erro = error as AxiosError<Erro>
+
+        throw new Error(erro.response?.data.message)
     }
 }
