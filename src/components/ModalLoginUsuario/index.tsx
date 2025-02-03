@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AbBotao, AbCampoTexto, AbModal } from 'ds-alurabooks'
 import { logarUsuario } from '@/services/autenticacao'
+import { armazenarToken } from '@/utils/token'
 import imagemPrincipal from './assets/login.png'
 import styles from './ModalLoginUsuario.module.scss'
 
@@ -26,7 +27,7 @@ const ModalLoginUsuario = ({
             senha,
         })
             .then(resposta => {
-                sessionStorage.setItem('token', resposta.access_token)
+                armazenarToken(resposta.access_token)
                 setEmail('')
                 setSenha('')
                 aoEfetuarLogin()
