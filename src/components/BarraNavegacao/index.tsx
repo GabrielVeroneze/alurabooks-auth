@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { obterToken } from '@/utils/token'
 import ModalLoginUsuario from '@/components/ModalLoginUsuario'
 import ModalCadastroUsuario from '@/components/ModalCadastroUsuario'
 import ContaNavegacao from './ContaNavegacao'
@@ -12,7 +13,7 @@ const BarraNavegacao = () => {
     const [modalCadastroAberta, setModalCadastroAberta] = useState<boolean>(false)
 
     const navigate = useNavigate()
-    const token = sessionStorage.getItem('token')
+    const token = obterToken()
 
     const [usuarioEstaLogado, setUsuarioEstaLogado] = useState<boolean>(token !== null)
 
