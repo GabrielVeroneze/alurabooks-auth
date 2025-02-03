@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AbBotao, AbCampoTexto, AbModal } from 'ds-alurabooks'
-import api from '@/services/api'
+import { logarUsuario } from '@/services/autenticacao'
 import imagemPrincipal from './assets/login.png'
 import styles from './ModalLoginUsuario.module.scss'
 
@@ -21,19 +21,19 @@ const ModalLoginUsuario = ({
     const handleSubmit = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
 
-        api.post('public/login', {
+        logarUsuario({
             email,
             senha,
         })
-            .then((resposta) => {
-                sessionStorage.setItem('token', resposta.data.access_token)
+            .then(resposta => {
+                sessionStorage.setItem('token', resposta.access_token)
                 setEmail('')
                 setSenha('')
                 aoEfetuarLogin()
             })
-            .catch((erro) => {
-                if (erro?.response?.data?.message) {
-                    alert(erro.response.data.message)
+            .catch(erro => {
+                if (erro.message) {
+                    alert(erro.message)
                 } else {
                     alert(
                         'Aconteceu um erro inesperado ao afetuar o seu login! Entre em contato com o suporte!'
