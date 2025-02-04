@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AbBotao } from 'ds-alurabooks'
+import { buscarPedidos } from '@/services/pedidos'
 import { Pedido } from '@/interfaces/Pedido'
-import api from '@/services/api'
 import styles from './Pedidos.module.scss'
 
 const Pedidos = () => {
@@ -13,9 +13,9 @@ const Pedidos = () => {
     const [pedidos, setPedidos] = useState<Pedido[]>([])
 
     useEffect(() => {
-        api.get<Pedido[]>('pedidos')
-            .then((resposta) => setPedidos(resposta.data))
-            .catch((erro) => console.log(erro))
+        buscarPedidos()
+            .then(dados => setPedidos(dados))
+            .catch(erro => console.log(erro))
     }, [])
 
     return (
