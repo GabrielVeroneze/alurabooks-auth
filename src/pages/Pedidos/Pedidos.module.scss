@@ -27,8 +27,10 @@
             }
         }
 
-        .botao {
+        .botoes {
+            display: flex;
             font-family: $fonte-secundaria;
+            gap: 1rem;
         }
     }
 }
