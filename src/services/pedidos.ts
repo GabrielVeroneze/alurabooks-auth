@@ -10,3 +10,11 @@ export async function buscarPedidos(): Promise<Pedido[]> {
         throw new Error('Erro ao carregar os pedidos.')
     }
 }
+
+export async function removerPedido(pedidoId: number): Promise<void> {
+    try {
+        await api.delete<Pedido>(`/pedidos/${pedidoId}`)
+    } catch {
+        throw new Error('Erro ao remover o pedido.')
+    }
+}
