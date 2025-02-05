@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { obterToken } from '@/utils/token'
 
 const api = axios.create({
     baseURL: 'http://localhost:8000/',
@@ -10,7 +11,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
     function (config) {
-        const token = sessionStorage.getItem('token')
+        const token = obterToken()
 
         if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`
