@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { obterToken } from '@/utils/token'
+import { limparToken, obterToken } from '@/utils/token'
 import ModalLoginUsuario from '@/components/ModalLoginUsuario'
 import ModalCadastroUsuario from '@/components/ModalCadastroUsuario'
 import ContaNavegacao from './ContaNavegacao'
@@ -24,7 +24,7 @@ const BarraNavegacao = () => {
 
     const efetuarLogout = () => {
         setUsuarioEstaLogado(false)
-        sessionStorage.removeItem('token')
+        limparToken()
         navigate('/')
     }
 
